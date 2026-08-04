@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# Large / regenerable replay JSONs (10s of MB each; download or regenerate as needed)
+replays/
+
+# Build artifacts (regenerate with: tar -czf submission.tar.gz main.py)
+*.tar.gz
