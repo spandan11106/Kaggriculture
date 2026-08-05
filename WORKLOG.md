@@ -25,7 +25,31 @@ Pulled `kaggle competitions submissions / leaderboard / episodes`:
 | LB shape | top 3092.3 ("somewhere after"); median 681; min 112 |
 | **Top-10 prize cutoff** | **~2835** (10th place). v19 is **~270 pts / ~60 ranks short of the money.** |
 
-**Read:** v19 is a legitimate top-5% agent that plays cleanly live, but it is **not yet in prize territory**. The ~270-pt gap reframes the roadmap — route-refresh distillation and the fertilizer→strawberry edge aren't just "beat the mirror" academics; they're the concrete levers to close a *measured* gap to the top-10. The field is still early (most submissions dated Aug 4–5) and the payout ranking is the Oct 1–15 Bradley-Terry window, so there's runway — but the leaders already sit at ~2900–3100.
+**Read:** v19 is a legitimate top-5% agent that plays cleanly live, but it is **not yet in prize territory**. The ~270-pt gap turns the roadmap from "beat the mirror" academics into a *measured* deficit to close — see **Loss forensics** below for where it actually leaks. The field is still early (most submissions dated Aug 4–5) and the payout ranking is the Oct 1–15 Bradley-Terry window, so there's runway — but the leaders already sit at ~2900–3100.
+
+---
+
+## Loss forensics — where the ~270 pts leak (2026-08-05)
+
+Pulled all 55 public replays of `55245235` (`scripts/pull_replays.py`), classified W/L, joined each opponent's leaderboard rank, and traced **ground-truth money curves** + final composition (`scripts/loss_report.py` → `analysis/loss_report_55245235.md`). Loss replays kept under `replays/live_55245235/` (gitignored).
+
+**Record: 40W–14L (74%)** — but it splits hard by opponent strength:
+
+| Opponent tier | games | W–L | winrate | mean margin |
+|---|--:|---|--:|--:|
+| **stronger than v19** | 13 | **5–8** | **38%** | −91 (coin-flip; all losses close, −244…−6.5k) |
+| weaker/equal | 41 | 35–6 | 85% | +38.8k (inflated by blowouts + 4 opponent crashes at +117k…+139k) |
+
+**The leak is back-half execution on an IDENTICAL build — not the opening, not allocation:**
+- v19 and the opponent are **dollar-for-dollar identical through ~day 10–12** (the converged 8-cow/5-sheep/6-straw opening is a solved near-mirror; final compositions match to ±0.1 tile on average).
+- From **day 13 on, v19 bleeds value every day**, worst on the **final sell days (d22–29)**. By day 15 v19 trails in **100%** of the 8 strong-opponent losses (mean gap: d10 −57 → d15 −1.1k → d25 −3.4k → final −3.2k).
+- **No catastrophic bug:** 0 non-DONE episodes; animal counts are monotonic (nobody starves). Losses are *efficiency*, not failure.
+
+**Mechanism — premium-good sell execution.** In the Kyle loss both seats dump near-identical late quantities (v19/Kyle: milk 159/171, straw 148/165, wool 134/134), but the realized-value gap concentrates in **milk, strawberry, wool** — exactly the premiums with `above_target>1` that crash to the $1 floor on gluts (final-day strawberry sank 149→108 intraday as inventory was dumped). Wheat/melon are ~even. _Caveat: qty×price-at-order overstates the absolute gap (both crash their own price mid-order) — this is direction, not magnitude; the money curve is the reliable size._
+
+**This revises the earlier thesis.** "Market execution doesn't matter; route-refresh is the only lever" was concluded from **self-play mirrors**, where both agents dump identically so the gap is invisible. Against real top-30 opponents, **back-half premium sell timing/spreading is precisely where the ~270 pts leak** — now a first-class, testable lever: A/B a smarter late-market policy on the gauntlet against a **distilled real-opponent tape** (`replay_to_tape.py`), *not* self-play (which is blind to it).
+
+**Two upset losses flagged for turn-by-turn forensics:** Chakrabhuana (r189) **−13,485** and Md. Hamid (r279) **−5,519** — same back-half bleed, amplified; in Chakrabhuana v19 also fielded **one fewer sheep (13 vs 14 animals)** → less back-half wool. The Chakrabhuana replay is the single biggest anomaly to dissect next.
 
 ---
 
