@@ -6,10 +6,26 @@ _Session date: 2026-08-04. Goal: win the Kaggriculture competition (top-10 each 
 
 ## TL;DR / current state
 
-- **v19 is SUBMITTED and LIVE** on the leaderboard (submission `55245235`, status COMPLETE). Rating is **climbing: 679.2 → 955.3** as it plays (still provisional; LB top is ~2900). Before this session the account had **zero** submissions — the biggest single action taken.
+- **v19 is SUBMITTED and LIVE** on the leaderboard (submission `55245235`, status COMPLETE). Rating settled at **2563.2 → rank 70 / 1590 (top 4.4%)** by 2026-08-05 — up from the 679→955 day-one provisional readings; games play cleanly (no error episodes). Before this session the account had **zero** submissions — the biggest single action taken. **Gap to the money: the top-10 prize cutoff is ~2835, so v19 is ~270 pts / ~60 ranks short.** See "Live status" below.
 - **v19 is the real baseline** (not c27): a 5,598-line procedural + 4-medoid-ensemble + clone-gated closed-loop controller. Extracted & SHA-verified to `agent/main_v19.py`. Beats c27 **10-2**.
 - Built a **fast, correct evaluation harness** (isolated file-path agents) + a **market diagnostic** + a **replay→tape distiller** (validated to reproduce a recorded game exactly).
 - **Key finding:** naive market/allocation tweaks all LOSE to the tuned baseline — the agents are tightly-coupled systems. This matches the v19 notebook's own ablation: **route-refresh (distillation) is the dominant lever (+10 wins); market/closed-loop wrappers add ~+1.**
+
+---
+
+## Live status — 2026-08-05 (day-2 check)
+
+Pulled `kaggle competitions submissions / leaderboard / episodes`:
+
+| Metric | Value |
+|---|---|
+| v19 public score | **2563.2** (day-1 readings were 679 → 955, very provisional) |
+| Rank | **70 / 1590** teams — top **4.4%** (team "Spandan Mhapsekar") |
+| Live stability | episodes all `COMPLETED`, **no error states** — agent is stable at scale |
+| LB shape | top 3092.3 ("somewhere after"); median 681; min 112 |
+| **Top-10 prize cutoff** | **~2835** (10th place). v19 is **~270 pts / ~60 ranks short of the money.** |
+
+**Read:** v19 is a legitimate top-5% agent that plays cleanly live, but it is **not yet in prize territory**. The ~270-pt gap reframes the roadmap — route-refresh distillation and the fertilizer→strawberry edge aren't just "beat the mirror" academics; they're the concrete levers to close a *measured* gap to the top-10. The field is still early (most submissions dated Aug 4–5) and the payout ranking is the Oct 1–15 Bradley-Terry window, so there's runway — but the leaders already sit at ~2900–3100.
 
 ---
 
@@ -97,7 +113,7 @@ kaggle competitions leaderboard kaggriculture --show
 - Found + decoded the **v19 notebook** (`41-49-future-unseen…ipynb`, dated today). v19 uses a **train/holdout split**, 4 **train-only medoid experts**, Himanshu's route for both seats, a disabled state-distance gate, and a **clone-gated closed-loop late-market controller** (`collision_score = (1+opp_exposure)·glut·max(1,price)·log1p(qty)`).
 - Its **mirror match is the failure cluster** (1/4 vs the source it clones) — the real open problem.
 - Validated v19: self-play 6-6-0 / +0 / 0 errors (passes Kaggle validation); vs starter/random 8-0.
-- **Submitted** `submission.tar.gz` → ref `55245235`, COMPLETE. Rating climbing (679.2 → 955.3 as of last check).
+- **Submitted** `submission.tar.gz` → ref `55245235`, COMPLETE. Rating settled at **2563.2 → rank 70/1590 (top 4.4%)** by 2026-08-05 (see "Live status"); ~270 pts short of the top-10 cutoff.
 
 ---
 
@@ -122,6 +138,6 @@ kaggle competitions leaderboard kaggriculture --show
 1. **Route-refresh pipeline** — need the external `download_top_replays.py` (fetches *other teams'* submission IDs/replays via the Kaggle sim-episodes API with score-matching). Either paste it, or I rebuild via the `ListEpisodes` endpoint. Then: pull current top-N → per-author train-only medoid → gate vs v19 (both seats, fresh chronological snapshot).
 2. **Robustness eval + slot-B** — build a diverse opponent set (distilled real leaders + baselines + a market-dumper), find where v19 loses, design a decorrelated 2nd submission.
 3. **Fertilizer→strawberry** production edge (needs a re-distilled base or procedural layer) — the one quantified way to beat the mirror.
-4. **Monitor `55245235`** as it plays; pull loss replays to find failure modes.
+4. **Monitor `55245235`** — now rank 70/1590 (2563.2), ~270 pts below the top-10 line; pull loss replays vs the ~2900+ leaders to find where those ~270 pts leak.
 
 _Blocker for #1: the "download other teams' replays" script (external, not in repo)._
