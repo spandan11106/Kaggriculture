@@ -88,8 +88,8 @@ def report(per_item, rewards, label):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("agent_a", nargs="?", default="agent/main.py")
-    ap.add_argument("agent_b", nargs="?", default="agent/main.py")
+    ap.add_argument("agent_a", nargs="?", default="submissions/01-v19/main.py")
+    ap.add_argument("agent_b", nargs="?", default="submissions/01-v19/main.py")
     ap.add_argument("--seeds", type=int, default=6)
     args = ap.parse_args()
     seeds = list(range(args.seeds))

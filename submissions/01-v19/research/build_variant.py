@@ -1,9 +1,9 @@
 """Build self-contained agent variants by swapping the CONFIG block in controller_base.py."""
 import os, re
 
-ROOT = os.path.join(os.path.dirname(__file__), "..")
-BASE = os.path.join(ROOT, "agent", "controller_base.py")
-OUTDIR = os.path.join(ROOT, "variants")
+ROOT = os.path.dirname(os.path.abspath(__file__))
+BASE = os.path.join(ROOT, "controller_base.py")
+OUTDIR = os.path.join(ROOT, "c28-ablations")
 MARK = re.compile(r"# >>>CONFIG.*?# <<<CONFIG", re.S)
 
 

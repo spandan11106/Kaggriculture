@@ -11,3 +11,9 @@ replays/
 
 # Build artifacts (regenerate with: tar -czf submission.tar.gz main.py)
 *.tar.gz
+
+# Generated sellfix variants — 400 KB each, dead-end experiment (regenerable).
+# Regenerate: python submissions/02-kyle-r33/research/sellfix/build_sellfix.py
+submissions/02-kyle-r33/research/sellfix/v19_sellfix.py
+submissions/02-kyle-r33/research/sellfix/v19_sellonly.py
+submissions/02-kyle-r33/research/sellfix/v19_placeonly.py

@@ -6,8 +6,8 @@ Variants are built by scripts/build_variant.py (swaps the CONFIG block).
 """
 import os, re
 
-ROOT = os.path.join(os.path.dirname(__file__), "..")
-src = open(os.path.join(ROOT, "agent", "main_c27.py")).read()
+ROOT = os.path.dirname(os.path.abspath(__file__))
+src = open(os.path.join(ROOT, "main_c27.py")).read()
 
 # Keep everything up to (but not including) the original `def agent(`.
 head, _sep, _tail = src.partition("\ndef agent(")
@@ -138,5 +138,5 @@ def agent(obs, config=None):
 '''
 
 out = head + EXT
-open(os.path.join(ROOT, "agent", "controller_base.py"), "w").write(out)
-print("wrote agent/controller_base.py:", out.count(chr(10)) + 1, "lines")
+open(os.path.join(ROOT, "controller_base.py"), "w").write(out)
+print("wrote controller_base.py:", out.count(chr(10)) + 1, "lines")
