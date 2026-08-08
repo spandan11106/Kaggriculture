@@ -1,12 +1,13 @@
 # Kaggriculture — Work Log
 
-_Session date: 2026-08-04. Goal: win the Kaggriculture competition (top-10 each win $5,000; final leaderboard = Bradley-Terry over Oct 1–15 games on each team's latest-2 submissions, locked Sep 30)._
+_Session dates: 2026-08-04 → 08. Goal: win the Kaggriculture competition (top-10 each win $5,000; final leaderboard = Bradley-Terry over Oct 1–15 games on each team's latest-2 submissions, locked Sep 30)._
 
 ---
 
 ## TL;DR / current state
 
-- **NEW (2026-08-05): `kyle_r33` distilled tape SHIPPED** → submission `55260946` (PENDING). Beats the v19 baseline **0.88 (35-5, +4687/game, 40 games, 0 errors)** and is robust vs a 5-opponent panel. Its build is **byte-identical to v19's** — it's the *same* meta executed ~5% better. Distillation is now the empirically-confirmed dominant lever (see "Distillation win"). v19 preserved at `submissions/01-v19/main.py`; resubmit if kyle underperforms live.
+- **NEW (2026-08-08): `V14` clone-preemption SHIPPED → submission `55348049` (scoring).** The current best agent by far: a **Kakuteki-frontier tape** (competitor submission `55334137`, action-level reproduction) **+ a live overlay** — clone-preemption *front-running*, price-impact/demand market-order ranking, weed repair, terminal liquidation. Local (paired both seats, 0 errors): **beats v19 16-0 (+10.7k) and kyle 16-0 (+11.2k), sweeps the distilled panel 12-0** (mengfei/kenmatsu/ali), robust at `townCenterSellInterval=24`. **Active latest-2 pair is now V14 + kyle_r33** (v19 rolls off). Agent + provenance notebook + full investigation in `submissions/03-execution-edge/`. This validated the session's thesis: **the win = distill the *current frontier* + FRONT-RUN (aggression), not restraint.**
+- **(2026-08-05): `kyle_r33` distilled tape SHIPPED** → submission `55260946` (PENDING). Beats the v19 baseline **0.88 (35-5, +4687/game, 40 games, 0 errors)** and is robust vs a 5-opponent panel. Its build is **byte-identical to v19's** — it's the *same* meta executed ~5% better. Distillation is now the empirically-confirmed dominant lever (see "Distillation win"). v19 preserved at `submissions/01-v19/main.py`; resubmit if kyle underperforms live.
 - **v19 is SUBMITTED and LIVE** on the leaderboard (submission `55245235`, status COMPLETE). Rating settled at **2563.2 → rank 70 / 1590 (top 4.4%)** by 2026-08-05 — up from the 679→955 day-one provisional readings; games play cleanly (no error episodes). Before this session the account had **zero** submissions — the biggest single action taken. **Gap to the money: the top-10 prize cutoff is ~2835, so v19 is ~270 pts / ~60 ranks short.** See "Live status" below.
 - **v19 is the real baseline** (not c27): a 5,598-line procedural + 4-medoid-ensemble + clone-gated closed-loop controller. Extracted & SHA-verified to `submissions/01-v19/main.py`. Beats c27 **10-2**.
 - Built a **fast, correct evaluation harness** (isolated file-path agents) + a **market diagnostic** + a **replay→tape distiller** (validated to reproduce a recorded game exactly).
@@ -126,6 +127,7 @@ kaggle competitions leaderboard kaggriculture --show
 |---|---|
 | `submissions/01-v19/` | **Submission 1** — v19 (`55245235`): `main.py` + `research/` (c27/c28 ablation framework, notebooks, tapes) |
 | `submissions/02-kyle-r33/` | **Submission 2** — kyle_r33 distilled tape (`55260946`): `main.py` + `research/` (loss forensics, distilled tapes, sell-fix dead-end, design spec) |
+| `submissions/03-execution-edge/` | **Submission 3** — **V14 clone-preemption** (`55348049`, current best): `main.py` (V14) + provenance notebook + `RESULTS.md` (full investigation, Parts 1–7) + `agent.py` (from-scratch clean-room agent, dead-end) + `research/` (prior-art report, pipelines) |
 | `env_ref/` | *Shared:* vendored engine source + docs (authoritative mechanics) |
 | `eval/gauntlet.py` | *Shared:* paired-seat H2H, isolated file-path agents, parallel |
 | `eval/market_diagnostic.py` | *Shared:* instruments the engine to log realized sell prices |
