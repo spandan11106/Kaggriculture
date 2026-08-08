@@ -1,0 +1,286 @@
+{
+ "cows": [
+  {
+   "pos": [
+    4,
+    4
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 3,
+    "idx": 0
+   },
+   "pickup": {
+    "step": 2,
+    "idx": 0
+   },
+   "build": {
+    "step": 1,
+    "idx": 0,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    4,
+    3
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 8,
+    "idx": 1
+   },
+   "pickup": {
+    "step": 5,
+    "idx": 1
+   },
+   "build": {
+    "step": 3,
+    "idx": 1,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    3,
+    4
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 16,
+    "idx": 1
+   },
+   "pickup": {
+    "step": 5,
+    "idx": 1
+   },
+   "build": {
+    "step": 4,
+    "idx": 3,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    3,
+    3
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 131,
+    "idx": 2
+   },
+   "pickup": {
+    "step": 127,
+    "idx": 2
+   },
+   "build": {
+    "step": 125,
+    "idx": 4,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    0,
+    2
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 181,
+    "idx": 2
+   },
+   "pickup": {
+    "step": 170,
+    "idx": 2
+   },
+   "build": {
+    "step": 162,
+    "idx": 0,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    7,
+    4
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 239,
+    "idx": 0
+   },
+   "pickup": {
+    "step": 235,
+    "idx": 0
+   },
+   "build": {
+    "step": 233,
+    "idx": 8,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    4,
+    5
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 269,
+    "idx": 6
+   },
+   "pickup": {
+    "step": 267,
+    "idx": 6
+   },
+   "build": {
+    "step": 262,
+    "idx": 7,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    3,
+    2
+   ],
+   "animal": "COW",
+   "place": {
+    "step": 275,
+    "idx": 6
+   },
+   "pickup": {
+    "step": 267,
+    "idx": 6
+   },
+   "build": {
+    "step": 260,
+    "idx": 0,
+    "kind": "BUILD_PASTURE"
+   }
+  }
+ ],
+ "sheep": [
+  {
+   "pos": [
+    4,
+    2
+   ],
+   "animal": "SHEEP",
+   "place": {
+    "step": 9,
+    "idx": 0
+   },
+   "pickup": {
+    "step": 6,
+    "idx": 0
+   },
+   "build": {
+    "step": 4,
+    "idx": 2,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    2,
+    4
+   ],
+   "animal": "SHEEP",
+   "place": {
+    "step": 135,
+    "idx": 2
+   },
+   "pickup": {
+    "step": 128,
+    "idx": 2
+   },
+   "build": {
+    "step": 126,
+    "idx": 5,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    5,
+    4
+   ],
+   "animal": "SHEEP",
+   "place": {
+    "step": 201,
+    "idx": 4
+   },
+   "pickup": {
+    "step": 199,
+    "idx": 4
+   },
+   "build": {
+    "step": 198,
+    "idx": 8,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    5,
+    3
+   ],
+   "animal": "SHEEP",
+   "place": {
+    "step": 205,
+    "idx": 8
+   },
+   "pickup": {
+    "step": 202,
+    "idx": 8
+   },
+   "build": {
+    "step": 201,
+    "idx": 6,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    6,
+    4
+   ],
+   "animal": "SHEEP",
+   "place": {
+    "step": 209,
+    "idx": 9
+   },
+   "pickup": {
+    "step": 205,
+    "idx": 9
+   },
+   "build": {
+    "step": 204,
+    "idx": 4,
+    "kind": "BUILD_PASTURE"
+   }
+  },
+  {
+   "pos": [
+    6,
+    3
+   ],
+   "animal": "SHEEP",
+   "place": {
+    "step": 212,
+    "idx": 9
+   },
+   "pickup": {
+    "step": 205,
+    "idx": 9
+   },
+   "build": {
+    "step": 203,
+    "idx": 6,
+    "kind": "BUILD_PASTURE"
+   }
+  }
+ ]
+}
